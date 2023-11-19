@@ -5,7 +5,7 @@ File in charge of testing the functions contained in the class
 """
 
 from sys import stderr
-from from window_asset_tkinter import WindowAsset
+from window_asset_tkinter import WindowAsset
 
 
 def print_debug(string: str = "") -> None:
