@@ -48,7 +48,21 @@ class Unsorted:
             window.resizable(True, True)
 
     def load_image(self, image_path: str, width: int = 10, height: int = 10) -> dict[str, any]:
-        """ Add an image to a window """
+        """
+        Add an image to a window 
+        :param image_path: The path to the image
+        :param width: The destination width of the image
+        :param height: The destination heigth of the iamge
+        :return: A dictionnary with the following values:
+            * If everything went fine:
+                * "img": The image
+                * raw_output:
+                    * {"img":<object_pointing_to_the_image>}
+            * otherwise:
+                * "err_message": The error message if the image could not be loaded
+                * raw_output:
+                    * {"err_message":<error_message>}
+        """
         result = {}
         if (os.path.exists(image_path) is False) or (os.path.isfile(image_path) is False):
             err_msg = "Image path is not valid or not provided"
