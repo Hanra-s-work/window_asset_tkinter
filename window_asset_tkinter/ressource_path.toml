@@ -1,0 +1,86 @@
+
+workdir = "./meta_data"
+img_dir = "{workdir}/img"
+
+[files]
+# # The path from wich to load everything
+# workdir = "./meta_data/"
+# The ressources to load:
+## The config files
+default-settings = "{workdir}/conf/default-settings.json"
+project_credits = "{workdir}/conf/project_credits.json"
+
+[user]
+# The path from wich to load the user profile
+save_file_users = "{workdir}/saves/user_database.sqlite"
+# The path from wich to load the user default profiles
+default_login_table = "{workdir}/conf/sql/default/default_login.rsqlite"
+default_user_preferences_table = "{workdir}/conf/sql/default/default_user_preferences.rsqlite"
+user_name = ""
+
+[characters]
+characters_location = "{workdir}/character_profiles/"
+# The name of the character, left blank to be filled by the loading section of the program
+character_name = "{current_character_name}"
+# The path from wich to load the character profiles
+character_dir = "{characters_location}{character_name}"
+character_save_file = "{character_dir}/saves/characters_db.sqlite"
+character_structure_guide = "{character_dir}/profile_structure.json"
+default_character_profile = "{character_dir}/conf/sql/default/default_character_db.rsqlite"
+character_node = ""
+# [characters.loaded_data]
+# biography = ""
+# character_name = ""
+# profile = ""
+# save = ""
+# spritesheet = ""
+# spritesheet_json = ""
+# voice = ""
+# voice_json = ""
+
+[images]
+# System images
+icon = "{workdir}/img/icon/favicon.ico"
+loading = "{workdir}/img/loading/loading_anti_clockwise.png"
+loading_settings = "{workdir}/json/img/loading.json"
+
+[images.welcome_page]
+welcome_images_path = "{workdir}/img/welcome_page"
+icon_about = "{welcome_images_path}/about/about_256x256.png"
+icon_about_character = "{welcome_images_path}/about_character/id_card_256x256.png"
+icon_character_tester = "{welcome_images_path}/character_tester/test_256x256.png"
+icon_close = "{welcome_images_path}/close/close_256x256.png"
+icon_credits = "{welcome_images_path}/credits/global_search_256x256.png"
+icon_disclaimer = "{welcome_images_path}/disclaimer/disclaimer_256x256.png"
+icon_exit_program = "{welcome_images_path}/exit_program/power_off_256x256.png"
+icon_favorite_poses = "{welcome_images_path}/favorite_poses/heart_256x256.png"
+icon_find_friends = "{welcome_images_path}/find_friends/search_256x256.png"
+icon_how_to = "{welcome_images_path}/how_to/how_to_256x256.png"
+icon_license = "{welcome_images_path}/license/certificate_256x256.png"
+icon_log_out = "{welcome_images_path}/log_out/log_out_256x256.png"
+icon_privacy_policy = "{welcome_images_path}/privacy_policy/privacy_policy_256x256.png"
+icon_settings = "{welcome_images_path}/settings/settings_256x256.png"
+icon_speak = "{welcome_images_path}/speak/marketing_256x256.png"
+
+[fonts]
+font_dir = "{workdir}/fonts"
+font_emoji = "{font_dir}/emoji/noto_color/NotoColorEmoji-Regular.ttf"
+# font_mono = "{font_dir}/mono/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf"
+# font_mono = "{font_dir}/mono/Roboto_Mono/static/RobotoMono-Regular.ttf"
+# font_mono = "{font_dir}/mono/IBM_Plex_Mono/IBMPlexMono-Medium.ttf"
+font_mono = "{font_dir}/mono/Courier_Prime/CourierPrime-Regular.ttf"
+# font_default = "{font_dir}/default/"
+
+[emoji]
+emoji_dir = "{workdir}/json/emoji"
+emoji_md = "{emoji_dir}/emoji_md.json"
+md_emoji = "{emoji_dir}/md_emoji.json"
+
+[legal]
+legal_dir = "{workdir}/legal_info"
+disclaimer = "{legal_dir}/disclaimer.md"
+license = "{legal_dir}/LICENSE"
+privacy_policy = "{legal_dir}/privacy_policy.md"
+
+[main_menu]
+close_img = "{img_dir}/error_icon/error_64x64.png"
