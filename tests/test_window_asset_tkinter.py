@@ -17,4 +17,4 @@ def print_debug(string: str = "") -> None:
 
 def test_no_test_can_be_run_for_graphical_environements():
     """ No tests can be run when in a graphical environement """
-    return 0
+    assert 0==0

@@ -12,6 +12,7 @@ setuptools.setup(
     version='1.0.0',
     packages=setuptools.find_packages(),
     install_requires=[
+        "tkcalendar>=1.6.1"
     ],
     author="Henry Letellier",
     author_email="henrysoftwarehouse@protonmail.com",
