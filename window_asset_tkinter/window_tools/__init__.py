@@ -15,10 +15,10 @@ class WindowTools(Add, Get, Set, Unsorted):
         super(WindowTools, self).__init__()
         self.success = 0
         self.error = 84
-        self.add = Add()
-        self.get = Get()
-        self.set = Set()
-        self.unsorted = Unsorted()
+        self._add = Add()
+        self._get = Get()
+        self._set = Set()
+        self._unsorted = Unsorted()
 
     def test_window_tools(self) -> None:
         """ Test the window tools """

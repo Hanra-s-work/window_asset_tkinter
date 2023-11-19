@@ -18,13 +18,13 @@ class ActionAssets:
 
     def __init__(self) -> None:
         super(ActionAssets, self).__init__()
-        self.round_toggle_switch = RoundToggleSwitch
-        self.square_toggle_button = SquareToggleButton
-        self.mono_square_toggle_button = MonoSquareToggleButton
-        self.password_entry = PasswordEntry
-        self.micro_styler = MicroStyler
-        self.md_to_micro_styler = MdToMicroStyler
-        self.dict_to_micro_styler = DictToMicroStyler
+        self._round_toggle_switch = RoundToggleSwitch
+        self._square_toggle_button = SquareToggleButton
+        self._mono_square_toggle_button = MonoSquareToggleButton
+        self._password_entry = PasswordEntry
+        self._micro_styler = MicroStyler
+        self._md_to_micro_styler = MdToMicroStyler
+        self._dict_to_micro_styler = DictToMicroStyler
 
     def test(self) -> None:
         """ A function to test the functionalities """

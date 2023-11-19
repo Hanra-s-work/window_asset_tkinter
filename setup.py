@@ -12,7 +12,8 @@ setuptools.setup(
     version='1.0.0',
     packages=setuptools.find_packages(),
     install_requires=[
-        "tkcalendar>=1.6.1"
+        "tkcalendar>=1.6.1",
+        "Pillow==9.5.0"
     ],
     author="Henry Letellier",
     author_email="henrysoftwarehouse@protonmail.com",
