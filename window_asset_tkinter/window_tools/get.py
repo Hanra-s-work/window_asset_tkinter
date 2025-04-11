@@ -9,48 +9,59 @@ import tkinter.filedialog as TKF
 class Get:
     """ The  class in charge of gathering the info of a GUI element """
 
-    def get_entry_content(self, entry: tk.Entry) -> str:
+    @staticmethod
+    def get_entry_content(entry: tk.Entry) -> str:
         """ get the content and update the entry field """
         return entry.get()
 
-    def get_window_width(self, window: tk.Tk) -> int:
+    @staticmethod
+    def get_window_width(window: tk.Tk) -> int:
         """ Get the width of the physical display """
         return window.winfo_screenwidth()
 
-    def get_window_height(self, window: tk.Tk) -> int:
+    @staticmethod
+    def get_window_height(window: tk.Tk) -> int:
         """ Get the height of the physical display """
         return window.winfo_screenheight()
 
-    def get_window_position_x(self, window: tk.Tk) -> int:
+    @staticmethod
+    def get_window_position_x(window: tk.Tk) -> int:
         """ Get the x position of the window """
         return window.winfo_x()
 
-    def get_window_position_y(self, window: tk.Tk) -> int:
+    @staticmethod
+    def get_window_position_y(window: tk.Tk) -> int:
         """ Get the y position of the window """
         return window.winfo_y()
 
-    def get_window_position(self, window: tk.Tk) -> tuple:
+    @staticmethod
+    def get_window_position(window: tk.Tk) -> tuple:
         """ Get the position of a tkinter window """
         return (window.winfo_x(), window.winfo_y())
 
-    def get_window_geometry(self, window: tk.Tk) -> str:
+    @staticmethod
+    def get_window_geometry(window: tk.Tk) -> str:
         """ Get the geometry of the window """
         return window.winfo_geometry()
 
-    def get_window_size(self, window: tk.Tk) -> tuple:
+    @staticmethod
+    def get_window_size(window: tk.Tk) -> tuple:
         """ Get the size of the window """
         return (window.winfo_width(), window.winfo_height())
 
-    def get_window_title(self, window: tk.Tk) -> str:
+    @staticmethod
+    def get_window_title(window: tk.Tk) -> str:
         """ Get the title of the window """
         return window.title()
 
-    def get_filepath(self, window_title: str, filetypes: list[tuple, tuple] = [('txt files', '.txt'), ('all files', '.*')]) -> str:
+    @staticmethod
+    def get_filepath(window_title: str, filetypes: list[tuple, tuple] = [('txt files', '.txt'), ('all files', '.*')]) -> str:
         """ Get a filepath from the user's computer """
         filename = TKF.askopenfilename(title=window_title, filetypes=filetypes)
         return filename
 
-    def get_folderpath(self, window_title: str, initial_directory: str) -> str:
+    @staticmethod
+    def get_folderpath(window_title: str, initial_directory: str) -> str:
         """ Get the folderpath from the user's computer """
         folderpath = TKF.askdirectory(
             initialdir=initial_directory,
@@ -59,7 +70,8 @@ class Get:
         )
         return folderpath
 
-    def get_current_host_screen_dimensions(self, window: tk.Tk) -> dict:
+    @staticmethod
+    def get_current_host_screen_dimensions(window: tk.Tk) -> dict:
         """
         Get the size of the screen on which the program is running
         Workaround to get the size of the current screen in a multi-screen setup.
@@ -82,7 +94,8 @@ class Get:
         result["top"] = int(geometry.split("+")[2])
         return result
 
-    def get_image_dimensions(self, image:tk.Image) -> dict[str, int]:
+    @staticmethod
+    def get_image_dimensions(image: tk.Image) -> dict[str, int]:
         """ Get the dimensions of a given image """
         result = dict()
         result["width"] = image.width()

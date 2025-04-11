@@ -10,7 +10,8 @@ from tkcalendar import DateEntry
 class Add:
     """ The class in charge of adding a GUI element to other GUI elements """
 
-    def add_label(self, window: tk.Tk, text: str, fg: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "left", anchor: str = "center", fill: str = tk.NONE, font: tuple = ("Times New Roman", 12)) -> tk.Label:
+    @staticmethod
+    def add_label(window: tk.Tk, text: str, fg: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "left", anchor: str = "center", fill: str = tk.NONE, font: tuple = ("Times New Roman", 12)) -> tk.Label:
         """ Add a label to the window """
         Label = tk.Label(
             window,
@@ -25,7 +26,8 @@ class Add:
         Label.pack(padx=position_x, pady=position_y, side=side, fill=fill)
         return Label
 
-    def add_button(self, window: tk.Tk, text: str, fg: str, bkg: str, side: str, command: any, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, anchor: str = tk.CENTER, fill: str = tk.NONE, column: int = -1, row: int = -1, column_span: int = 1) -> tk.Button:
+    @staticmethod
+    def add_button(window: tk.Tk, text: str, fg: str, bkg: str, side: str, command: any, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, anchor: str = tk.CENTER, fill: str = tk.NONE, column: int = -1, row: int = -1, column_span: int = 1) -> tk.Button:
         """ Add a button to the window """
         button = tk.Button(
             window,
@@ -54,7 +56,8 @@ class Add:
             )
         return button
 
-    def add_frame(self, window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top", fill: str = tk.BOTH, anchor: str = tk.CENTER) -> tk.Frame:
+    @staticmethod
+    def add_frame(window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top", fill: str = tk.BOTH, anchor: str = tk.CENTER) -> tk.Frame:
         """ Add a frame to the window """
         Frame1 = tk.Frame(
             window,
@@ -68,7 +71,8 @@ class Add:
                     side=side, fill=fill, anchor=anchor)
         return Frame1
 
-    def add_labelframe(self, window: tk.Tk, title: str, padding_x: int, padding_y: int, fill: str, expand: str, width: int = 50, height: int = 50, bkg: str = "#FFFFFF", fg: str = "#000000", font: tuple = ("Times New Roman", 12)) -> tk.LabelFrame:
+    @staticmethod
+    def add_labelframe(window: tk.Tk, title: str, padding_x: int, padding_y: int, fill: str, expand: str, width: int = 50, height: int = 50, bkg: str = "#FFFFFF", fg: str = "#000000", font: tuple = ("Times New Roman", 12)) -> tk.LabelFrame:
         """ add a labelframe to the window """
         LabelFrame = tk.LabelFrame(
             window,
@@ -84,7 +88,8 @@ class Add:
         LabelFrame.pack(fill=fill, expand=expand)
         return LabelFrame
 
-    def add_spinbox(self, window: tk.Tk, minimum: int, maximum: int, bkg: str, fg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0) -> tk.Spinbox:
+    @staticmethod
+    def add_spinbox(window: tk.Tk, minimum: int, maximum: int, bkg: str, fg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0) -> tk.Spinbox:
         """ Add a spinbox to the window """
         spin = tk.Spinbox(
             window,
@@ -98,7 +103,8 @@ class Add:
         spin.pack(padx=position_x, pady=position_y)
         return spin
 
-    def add_entry(self, window: tk.Tk, text_variable: str = "", width: int = 20, bkg: str = "#FFFFFF", fg: str = "#000000", side: str = tk.LEFT, fill: str = tk.NONE, anchor: str = tk.CENTER, position_x: int = 0, position_y: int = 0, font: tuple = ()) -> tk.Entry:
+    @staticmethod
+    def add_entry(window: tk.Tk, text_variable: str = "", width: int = 20, bkg: str = "#FFFFFF", fg: str = "#000000", side: str = tk.LEFT, fill: str = tk.NONE, anchor: str = tk.CENTER, position_x: int = 0, position_y: int = 0, font: tuple = ()) -> tk.Entry:
         """ Add an entry field allowing the user to enter text """
         if isinstance(text_variable, str) == True:
             tmp = text_variable
@@ -122,7 +128,8 @@ class Add:
         )
         return entree
 
-    def add_paned_window(self, window: tk.Tk, orientation: str, side: str, expand: str, fill: str, vertical_padding: int, horizontal_padding: int) -> tk.PanedWindow:
+    @staticmethod
+    def add_paned_window(window: tk.Tk, orientation: str, side: str, expand: str, fill: str, vertical_padding: int, horizontal_padding: int) -> tk.PanedWindow:
         """ Add a paned window to the parent window, and configure orientation """
         panned_window = tk.PanedWindow(window, orient=orientation)
         panned_window.pack(
@@ -134,12 +141,14 @@ class Add:
         )
         return panned_window
 
-    def add_panned_window_node(self, panned_window: tk.PanedWindow, frame_window: tk.Frame) -> None:
+    @staticmethod
+    def add_panned_window_node(panned_window: tk.PanedWindow, frame_window: tk.Frame) -> None:
         """ Add a node to the Paned window """
         panned_window.add(frame_window)
         panned_window.pack()
 
-    def add_date_field(self, window: tk.Tk, width: int = 16, date_pattern: str = "dd/MM/yyyy", selectmode: str = "day", pady: int = 0, padx: int = 0, bkg: str = "black", fg: str = "white", borderwidth: int = 2, side: str = "left", fill: str = tk.NONE) -> DateEntry:
+    @staticmethod
+    def add_date_field(window: tk.Tk, width: int = 16, date_pattern: str = "dd/MM/yyyy", selectmode: str = "day", pady: int = 0, padx: int = 0, bkg: str = "black", fg: str = "white", borderwidth: int = 2, side: str = "left", fill: str = tk.NONE) -> DateEntry:
         """ Add a date field allowing date selection """
         cal = DateEntry(
             window,
@@ -158,7 +167,8 @@ class Add:
         )
         return cal
 
-    def add_dropdown(self, window: tk.Tk, elements: list[str], state: str = "readonly", padx: int = 0, pady: int = 0, anchor: str = "e", side: str = tk.TOP, default_choice: int = 0, fill: str = tk.NONE, bkg: str = "#FFFFFF", fg: str = "#000000", font: tuple = ("Helvetica", 12), height: int = 1, width: int = 4) -> ttk.Combobox:
+    @staticmethod
+    def add_dropdown(window: tk.Tk, elements: list[str], state: str = "readonly", padx: int = 0, pady: int = 0, anchor: str = "e", side: str = tk.TOP, default_choice: int = 0, fill: str = tk.NONE, bkg: str = "#FFFFFF", fg: str = "#000000", font: tuple = ("Helvetica", 12), height: int = 1, width: int = 4) -> ttk.Combobox:
         """ generate a drop down menu for a window """
         combo = ttk.Combobox(
             window,
@@ -180,7 +190,8 @@ class Add:
         )
         return combo
 
-    def add_get_data(self, parent_frame: tk.Frame, window_width, window_height, bkg, fg, label_description, button_command) -> dict[any]:
+    @staticmethod
+    def add_get_data(parent_frame: tk.Frame, window_width, window_height, bkg, fg, label_description, button_command) -> dict[any]:
         """ generate a filepath gathering section """
         result = dict()
         button_description = "..."
@@ -228,7 +239,8 @@ class Add:
             result['data_frame'], result['text_var'], description_entry_width, bkg=bkg, fg=fg, side=tk.LEFT)
         return result
 
-    def add_paragraph_field(self, frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
+    @staticmethod
+    def add_paragraph_field(frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
         """ add a paragraph (a big zone to enter text) """
         paragraph = tk.Text(
             frame,
@@ -257,11 +269,13 @@ class Add:
         )
         return paragraph
 
-    def add_text_field(self, frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
+    @staticmethod
+    def add_text_field(frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
         """ add a paragraph (a big zone to enter text) """
         return self.add_paragraph_field(frame, fg, bkg, height, width, padx_text, pady_text, block_cursor, font, cursor, export_selection, highlight_colour,  relief, undo, wrap, fill, side, padx_pack, pady_pack, ipadx, ipady)
 
-    def add_grid(self, window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top") -> tk.Frame:
+    @staticmethod
+    def add_grid(window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top") -> tk.Frame:
         """ add a grid to a frame """
         frame = self.add_frame(
             window,
@@ -278,7 +292,8 @@ class Add:
         frame.grid_rowconfigure(0, weight=1)
         return frame
 
-    def add_scrollbox(self, window: tk.Tk, grid_borderwidth: int, grid_relief: str, grid_bkg: str, grid_width: int = 50, grid_height: int = 50, grid_position_x: int = 0, grid_position_y: int = 0, grid_side: str = "top", paragraph_fg: str = "black", paragraph_bkg: str = "white", paragraph_height: int = 10, paragraph_width: int = 10, paragraph_padx_text: int = 0, paragraph_pady_text: int = 0, paragraph_block_cursor: bool = False, paragraph_font: tuple = (), paragraph_cursor: str = "xterm", paragraph_export_selection: bool = True, paragraph_highlight_colour: str = "#0077FF",  paragraph_relief: str = tk.GROOVE, paragraph_undo: bool = True, paragraph_wrap: str = "word", paragraph_fill: str = tk.BOTH, paragraph_side: str = tk.TOP, paragraph_padx_pack: int = 0, paragraph_pady_pack: int = 0, paragraph_ipadx: int = 1, paragraph_ipady: int = 1, scroll_orientation: str = tk.VERTICAL) -> dict[any]:
+    @staticmethod
+    def add_scrollbox(window: tk.Tk, grid_borderwidth: int, grid_relief: str, grid_bkg: str, grid_width: int = 50, grid_height: int = 50, grid_position_x: int = 0, grid_position_y: int = 0, grid_side: str = "top", paragraph_fg: str = "black", paragraph_bkg: str = "white", paragraph_height: int = 10, paragraph_width: int = 10, paragraph_padx_text: int = 0, paragraph_pady_text: int = 0, paragraph_block_cursor: bool = False, paragraph_font: tuple = (), paragraph_cursor: str = "xterm", paragraph_export_selection: bool = True, paragraph_highlight_colour: str = "#0077FF",  paragraph_relief: str = tk.GROOVE, paragraph_undo: bool = True, paragraph_wrap: str = "word", paragraph_fill: str = tk.BOTH, paragraph_side: str = tk.TOP, paragraph_padx_pack: int = 0, paragraph_pady_pack: int = 0, paragraph_ipadx: int = 1, paragraph_ipady: int = 1, scroll_orientation: str = tk.VERTICAL) -> dict[any]:
         """ Add a scrollbar to a text entity """
         result = dict()
         result["grid"] = self.add_grid(
@@ -325,7 +340,8 @@ class Add:
         result["paragraph"]['yscrollcommand'] = result["scrollbar"].set
         return result
 
-    def add_scroll_bar(self, frame: tk.Frame, tk_field: tk.Text, scroll_orientation: str = tk.VERTICAL, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.CENTER, row: int = -1, column: int = -1, sticky: str = tk.NS) -> ttk.Scrollbar:
+    @staticmethod
+    def add_scroll_bar(frame: tk.Frame, tk_field: tk.Text, scroll_orientation: str = tk.VERTICAL, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.CENTER, row: int = -1, column: int = -1, sticky: str = tk.NS) -> ttk.Scrollbar:
         """ Add a scroll bar to a tkinter asset """
         scroll_bar = ttk.Scrollbar(
             master=frame,
@@ -344,7 +360,8 @@ class Add:
             )
         return scroll_bar
 
-    def add_preloaded_image(self, window: tk.Tk, image_data: dict, bkg: str = "#FFFFFF", fg: str = "#000000", width: int = 10, height: int = 10, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.NW, font: tuple = ("Times New Roman", 12)) -> dict[str, any]:
+    @staticmethod
+    def add_preloaded_image(window: tk.Tk, image_data: dict, bkg: str = "#FFFFFF", fg: str = "#000000", width: int = 10, height: int = 10, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.NW, font: tuple = ("Times New Roman", 12)) -> dict[str, any]:
         """ Add an image to a window """
         result = {}
         ratio = 10
@@ -416,7 +433,8 @@ class Add:
             result["placeholder"].config(state=tk.DISABLED)
         return result
 
-    def add_watermark(self, window: tk.Tk, side: str = tk.BOTTOM, anchor: str = tk.E, bkg: str = "white", fg: str = "black", font: tuple = ("Times New Roman", 12)) -> tk.Label:
+    @staticmethod
+    def add_watermark(window: tk.Tk, side: str = tk.BOTTOM, anchor: str = tk.E, bkg: str = "white", fg: str = "black", font: tuple = ("Times New Roman", 12)) -> tk.Label:
         """ Add the watermark to the window """
         text = f"{chr(169)} Created by Henry Letellier"
         watermark = self.add_label(
@@ -435,7 +453,8 @@ class Add:
         )
         return watermark
 
-    def add_emoji(self, window: tk.Tk, text: str, fg: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "left", anchor: str = "center", fill: str = tk.NONE, font: tuple = ("noto-color", 12)) -> tk.Label:
+    @staticmethod
+    def add_emoji(window: tk.Tk, text: str, fg: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "left", anchor: str = "center", fill: str = tk.NONE, font: tuple = ("noto-color", 12)) -> tk.Label:
         """ Add a label to the window """
         Label = tk.Label(
             window,

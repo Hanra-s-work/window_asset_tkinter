@@ -5,13 +5,16 @@ File in charge of containing the rest of the Window Tools class that could not b
 import os
 import string
 import random
+from typing import Dict, Any, Union
+
 import tkinter as tk
 from PIL import ImageTk, Image
 
 
 class Unsorted:
     """ Class in the charge of containing the functions that could not be placed by action """
-    def gen_random_name(self, length: int = 10) -> str:
+    @staticmethod
+    def gen_random_name(length: int = 10) -> str:
         """ Generate a random name """
         result = ""
         while length > 0:
@@ -19,40 +22,41 @@ class Unsorted:
             length -= 1
         return result
 
-    def init_plain_window(self, root_window: tk.Tk = "") -> tk.Tk:
+    @staticmethod
+    def init_plain_window(root_window: Union[tk.Tk, tk.Toplevel, None] = None) -> Union[tk.Tk, tk.Toplevel]:
         """ Returns the basics of a window """
         my_window = root_window
         if isinstance(root_window, (tk.Tk, tk.Toplevel)):
-            my_window = tk.Toplevel(
-                root_window,
-            )
-        elif root_window == None:
+            my_window = tk.Toplevel(root_window)
+        elif root_window is None:
             my_window = tk.Toplevel()
         else:
             my_window = tk.Tk()
         return my_window
 
-    def init_window(self, window: tk.Tk, title: str, bkg: str, width: int, height: int, position_x: int, position_y: int, fullscreen: bool, resizable: bool) -> None:
+    @staticmethod
+    def init_window(window: tk.Tk, title: str, bkg: str, width: int, height: int, position_x: int, position_y: int, fullscreen: bool, resizable: bool) -> None:
         """ initialise the window for the main_menu """
         maximum = 200
         window.geometry(f"{width}x{height}+{position_x}+{position_y}")
         window.minsize(width=width, height=height)
-        if (fullscreen == False):
+        if fullscreen is False:
             window.maxsize(width=width+maximum, height=height + maximum)
         window.title(title)
         window['bg'] = bkg
         window.attributes('-fullscreen', fullscreen)
-        if resizable == False:
+        if resizable is False:
             window.resizable(False, False)
         else:
             window.resizable(True, True)
 
-    def load_image(self, image_path: str, width: int = 10, height: int = 10) -> dict[str, any]:
+    @staticmethod
+    def load_image(image_path: str, width: int = 10, height: int = 10) -> Dict[str, Any]:
         """
         Add an image to a window 
         :param image_path: The path to the image
         :param width: The destination width of the image
-        :param height: The destination heigth of the iamge
+        :param height: The destination height of the image
         :return: A dictionnary with the following values:
             * If everything went fine:
                 * "img": The image
@@ -86,40 +90,47 @@ class Unsorted:
             return result
         return result
 
-    def create_text_variable(self, default_text: str) -> tk.StringVar:
-        """ create a text variable in order to store inputed and outputed text """
+    @staticmethod
+    def create_text_variable(default_text: str) -> tk.StringVar:
+        """ create a text variable in order to store inputted and outputted text """
         value = tk.StringVar()
         value.set(default_text)
 
         return value
 
-    def clear_entry_content(self, entry: tk.Entry) -> None:
+    @staticmethod
+    def clear_entry_content(entry: tk.Entry) -> None:
         """ Clear all text currently present in the entry field """
         entry.delete(0, tk.END)
 
-    def update_entry_content(self, entry: tk.Entry, position: int, new_text: str) -> None:
+    @staticmethod
+    def update_entry_content(entry: tk.Entry, position: int, new_text: str) -> None:
         """ update the content of an entry field """
         entry.insert(position, new_text)
 
-    def enter_fullscreen(self, window: tk.Tk, fullscreen: bool) -> None:
+    @staticmethod
+    def enter_fullscreen(window: tk.Tk, fullscreen: bool) -> None:
         """ enter or exit the fullscreen """
         window.attributes('-fullscreen', fullscreen)
 
-    def allow_resizing(self, window: tk.Tk, allow: bool = True) -> None:
+    @staticmethod
+    def allow_resizing(window: tk.Tk, allow: bool = True) -> None:
         """ Allow the window to be resized """
-        if allow == False:
+        if allow is False:
             window.resizable(False, False)
         else:
             window.resizable(True, True)
 
-    def maintain_on_top(self, window: tk.Tk, always_on_top: bool) -> None:
+    @staticmethod
+    def maintain_on_top(window: tk.Tk, always_on_top: bool) -> None:
         """ Maintain the window always on top """
-        if always_on_top == True:
+        if always_on_top is True:
             window.attributes('-topmost', True)
         else:
             window.attributes('-topmost', False)
 
-    def free_loaded_image(self, image_pointer: ImageTk.PhotoImage) -> None:
+    @staticmethod
+    def free_loaded_image(image_pointer: ImageTk.PhotoImage) -> None:
         """ Free an image that was loaded and stored in memory """
         try:
             image_pointer.__del__()
