@@ -3,11 +3,13 @@ File in charge of displaying message boxes
 """
 import os
 import tkinter as tk
+from typing import Dict, Any
 from tkinter import messagebox as msg
-# uncomment if you are running the file locally
-# from window_tools import WindowTools as wt
-# comment if you are running the file locally
-from .window_tools import WindowTools as wt
+
+if __name__ == "__main__":
+    from window_tools import WindowTools as wt
+else:
+    from .window_tools import WindowTools as wt
 
 
 class ErrMessages(wt):
@@ -507,7 +509,7 @@ if __name__ == "__main__":
     LORE = False
     print("Please launch the main program")
 
-    FILE_INFO = {
+    FILE_INFO: Dict[str, Dict[str, Any]] = {
         "err_message": {
             "width": 300,
             "height": 110,
@@ -533,12 +535,12 @@ if __name__ == "__main__":
             "font_size": 12,
             "font_family": "Times New Roman",
             "debug_mode_enabled": False,
-            "icon_path": "../../../../meta_data/img/icon/favicon.ico",
+            "icon_path": f"{os.path.dirname(os.path.abspath(__file__))}/assets/favicon.ico",
             "button_width": 10,
             "button_height": 1,
-            "error_icon_path": "../../../../meta_data/img/error_icon/error_64x64.png",
-            "warning_icon_path": "../../../../meta_data/img/warning_icon/warning_64x64.png",
-            "information_icon_path": "../../../../meta_data/img/information_icon/information_64x64.png",
+            "error_icon_path": f"{os.path.dirname(os.path.abspath(__file__))}/assets/error_64x64.png",
+            "warning_icon_path": f"{os.path.dirname(os.path.abspath(__file__))}/assets/warning_64x64.png",
+            "information_icon_path": f"{os.path.dirname(os.path.abspath(__file__))}/assets/information_64x64.png",
             "image_width": 64,
             "image_height": 64
         }
