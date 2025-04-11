@@ -301,10 +301,10 @@ if __name__ == "__main__":
         CWPI.right_center: (9, 4),
         "gobbledygook": (0, 0)
     }
-    for i in test_input:
-        print(f"Testing: CPI.re_router({i}):", end="")
-        response = CWPI.re_router(i)
-        if response == test_input[i]:
+    for key, value in test_input.items():
+        print(f"Testing: CPI.re_router({key}):", end="")
+        response = CWPI.re_router(key)
+        if response == value:
             print("[OK]")
         else:
-            print(f"[KO]: Got {response} but expected {test_input[i]}")
+            print(f"[KO]: Got {response} but expected {value}")

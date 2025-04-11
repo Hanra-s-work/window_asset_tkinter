@@ -370,9 +370,9 @@ class MdToMicroStyler:
     def has_code_block(self, line) -> bool:
         """
 Check if the line has a code block '\n
-\`\`\`\n
+`` `\n
 code block\n
-\`\`\`\n
+`` `\n
 '"""
         if len(line) == 3:
             if self.code_block_id == line[:3]:
