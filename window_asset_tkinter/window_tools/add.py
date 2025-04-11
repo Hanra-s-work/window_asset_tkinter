@@ -190,8 +190,7 @@ class Add:
         )
         return combo
 
-    @staticmethod
-    def add_get_data(parent_frame: tk.Frame, window_width, window_height, bkg, fg, label_description, button_command) -> dict[any]:
+    def add_get_data(self, parent_frame: tk.Frame, window_width, window_height, bkg, fg, label_description, button_command) -> dict[any]:
         """ generate a filepath gathering section """
         result = dict()
         button_description = "..."
@@ -269,13 +268,11 @@ class Add:
         )
         return paragraph
 
-    @staticmethod
-    def add_text_field(frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
+    def add_text_field(self, frame: tk.Frame or tk.Tk, fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: tuple = (), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: str = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1) -> tk.Text:
         """ add a paragraph (a big zone to enter text) """
         return self.add_paragraph_field(frame, fg, bkg, height, width, padx_text, pady_text, block_cursor, font, cursor, export_selection, highlight_colour,  relief, undo, wrap, fill, side, padx_pack, pady_pack, ipadx, ipady)
 
-    @staticmethod
-    def add_grid(window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top") -> tk.Frame:
+    def add_grid(self, window: tk.Tk, borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: str = "top") -> tk.Frame:
         """ add a grid to a frame """
         frame = self.add_frame(
             window,
@@ -292,8 +289,7 @@ class Add:
         frame.grid_rowconfigure(0, weight=1)
         return frame
 
-    @staticmethod
-    def add_scrollbox(window: tk.Tk, grid_borderwidth: int, grid_relief: str, grid_bkg: str, grid_width: int = 50, grid_height: int = 50, grid_position_x: int = 0, grid_position_y: int = 0, grid_side: str = "top", paragraph_fg: str = "black", paragraph_bkg: str = "white", paragraph_height: int = 10, paragraph_width: int = 10, paragraph_padx_text: int = 0, paragraph_pady_text: int = 0, paragraph_block_cursor: bool = False, paragraph_font: tuple = (), paragraph_cursor: str = "xterm", paragraph_export_selection: bool = True, paragraph_highlight_colour: str = "#0077FF",  paragraph_relief: str = tk.GROOVE, paragraph_undo: bool = True, paragraph_wrap: str = "word", paragraph_fill: str = tk.BOTH, paragraph_side: str = tk.TOP, paragraph_padx_pack: int = 0, paragraph_pady_pack: int = 0, paragraph_ipadx: int = 1, paragraph_ipady: int = 1, scroll_orientation: str = tk.VERTICAL) -> dict[any]:
+    def add_scrollbox(self, window: tk.Tk, grid_borderwidth: int, grid_relief: str, grid_bkg: str, grid_width: int = 50, grid_height: int = 50, grid_position_x: int = 0, grid_position_y: int = 0, grid_side: str = "top", paragraph_fg: str = "black", paragraph_bkg: str = "white", paragraph_height: int = 10, paragraph_width: int = 10, paragraph_padx_text: int = 0, paragraph_pady_text: int = 0, paragraph_block_cursor: bool = False, paragraph_font: tuple = (), paragraph_cursor: str = "xterm", paragraph_export_selection: bool = True, paragraph_highlight_colour: str = "#0077FF",  paragraph_relief: str = tk.GROOVE, paragraph_undo: bool = True, paragraph_wrap: str = "word", paragraph_fill: str = tk.BOTH, paragraph_side: str = tk.TOP, paragraph_padx_pack: int = 0, paragraph_pady_pack: int = 0, paragraph_ipadx: int = 1, paragraph_ipady: int = 1, scroll_orientation: str = tk.VERTICAL) -> dict[any]:
         """ Add a scrollbar to a text entity """
         result = dict()
         result["grid"] = self.add_grid(
@@ -360,8 +356,7 @@ class Add:
             )
         return scroll_bar
 
-    @staticmethod
-    def add_preloaded_image(window: tk.Tk, image_data: dict, bkg: str = "#FFFFFF", fg: str = "#000000", width: int = 10, height: int = 10, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.NW, font: tuple = ("Times New Roman", 12)) -> dict[str, any]:
+    def add_preloaded_image(self, window: tk.Tk, image_data: dict, bkg: str = "#FFFFFF", fg: str = "#000000", width: int = 10, height: int = 10, fill: str = tk.BOTH, side: str = tk.TOP, padx: int = 0, pady: int = 0, anchor: str = tk.NW, font: tuple = ("Times New Roman", 12)) -> dict[str, any]:
         """ Add an image to a window """
         result = {}
         ratio = 10
@@ -433,8 +428,7 @@ class Add:
             result["placeholder"].config(state=tk.DISABLED)
         return result
 
-    @staticmethod
-    def add_watermark(window: tk.Tk, side: str = tk.BOTTOM, anchor: str = tk.E, bkg: str = "white", fg: str = "black", font: tuple = ("Times New Roman", 12)) -> tk.Label:
+    def add_watermark(self, window: tk.Tk, side: str = tk.BOTTOM, anchor: str = tk.E, bkg: str = "white", fg: str = "black", font: tuple = ("Times New Roman", 12)) -> tk.Label:
         """ Add the watermark to the window """
         text = f"{chr(169)} Created by Henry Letellier"
         watermark = self.add_label(
