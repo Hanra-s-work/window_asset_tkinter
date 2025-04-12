@@ -2,15 +2,15 @@
 File in charge of calculating the x and y coordinates for a given postion based on the window's size and the user's screen size
 """
 
-TOP_LEFT = "tl"
-TOP_CENTER = "tc"
-TOP_RIGHT = "tr"
-BOTTOM_LEFT = "bl"
-BOTTOM_CENTER = "bc"
-BOTTOM_RIGHT = "br"
-LEFT_CENTER = "lc"
 CENTER = "c"
+TOP_LEFT = "tl"
+TOP_RIGHT = "tr"
+TOP_CENTER = "tc"
+LEFT_CENTER = "lc"
+BOTTOM_LEFT = "bl"
 RIGHT_CENTER = "rc"
+BOTTOM_RIGHT = "br"
+BOTTOM_CENTER = "bc"
 
 
 class CalculateWindowPosition:
