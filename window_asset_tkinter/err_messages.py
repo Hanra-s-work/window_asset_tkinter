@@ -3,7 +3,7 @@ File in charge of displaying message boxes
 """
 import os
 import tkinter as tk
-from typing import Dict, Any
+from typing import Dict, Any, Union, List
 from tkinter import messagebox as msg
 
 if __name__ == "__main__":
@@ -17,10 +17,29 @@ class ErrMessages(wt):
 
     images = []
 
-    def __init__(self, base_window: tk.Tk, window_config: dict, print_debug: bool = False, cwd: str = os.getcwd()) -> None:
+    def __init__(self, base_window: Union[tk.Tk, tk.Toplevel], window_config: dict, print_debug: bool = False, cwd: str = os.getcwd()) -> None:
+        """
+        The constructor for the ErrMessages class.
+        It initializes the base window and the window configuration.
+        It also sets the default values for the window properties.
+        It loads the window configuration from the provided dictionary.
+        It also sets the default values for the window properties.
+        It also sets the default values for the button properties.
+        It also sets the default values for the image properties.
+        It also sets the default values for the execution result.
+        It also sets the default values for the message result.
+
+        Args:
+            base_window (Union[tk.Tk, tk.Toplevel]): _description_
+            window_config (dict): _description_
+            print_debug (bool, optional): _description_. Defaults to False.
+            cwd (str, optional): _description_. Defaults to os.getcwd().
+        """
         self.cwd = cwd.replace("\\", "/")
         self.base_window = base_window
-        self.window_config = {"debug_mode_enabled": print_debug}
+        self.window_config: Dict[str, Any] = {
+            "debug_mode_enabled": print_debug
+        }
         self.err_messages_load_window_config(window_config)
         self.bkg = self.window_config["background"]
         self.foreground = self.window_config["foreground"]
@@ -32,7 +51,7 @@ class ErrMessages(wt):
         self.iwidth = self.window_config["image_width"]
         self.execution_result = 0
         self.message_result = []
-        self.window = tk.Tk
+        self.window: tk.Tk = tk.Tk
         self.img_storer = None
         self.button_options = {
             "ok": 0, "o/c": 1,
@@ -48,23 +67,23 @@ class ErrMessages(wt):
         path_src = path_src.replace("\\", "/")
         append_path = append_path.replace("\\", "/")
         if "../" in path_src:
-            path_src = path_src.split("/")
-            append_path = append_path.split("/")
+            path_src_list: List[str] = path_src.split("/")
+            append_path_list: List[str] = append_path.split("/")
             tracker = []
-            for i in range(len(path_src)):
-                if path_src[i] == "..":
+            for i in path_src_list:
+                if i == "..":
                     tracker.append(i)
             for i in range(len(tracker)-1, 0, -1):
-                path_src.pop(tracker[i])
-                append_path.pop(len(append_path)-1)
-            path_src = "/".join(path_src)
-            append_path = "/".join(append_path)
+                path_src_list.pop(tracker[i])
+                append_path_list.pop(len(append_path_list)-1)
+            path_src = "/".join(path_src_list)
+            append_path = "/".join(append_path_list)
             result = f"{append_path}/{path_src}"
         else:
             result = path_src.replace(search_term, f"{append_path}/")
         return result
 
-    def err_messages_update_paths(self, window_config) -> None:
+    def err_messages_update_paths(self, window_config) -> Dict[str, Dict[str, Any]]:
         """ Update the path for the images of the error messages """
         search_term = "./"
         self.err_message_print_debug(f"new_position = {self.cwd}")
@@ -134,7 +153,7 @@ class ErrMessages(wt):
         if self.window_config["debug_mode_enabled"] is True:
             print(f"(em) {string}")
 
-    def err_messages_load_window_config(self, window_config: dict) -> None:
+    def err_messages_load_window_config(self, window_config: Dict[str, Dict[str, Any]]) -> None:
         """ Update the settings of the display depending on the configuration """
         window_config = self.err_messages_update_paths(window_config)
         self.err_message_print_debug("Loading window configuration")
@@ -167,7 +186,7 @@ class ErrMessages(wt):
             self.window_config["foreground"] = self.window_config["light_mode"]["foreground"]
         self.err_message_print_debug("Window configuration loaded")
 
-    def pack_correct_button(self, my_window: tk.Tk, frame: tk.Frame, button: int = 0, command: list = []) -> None:
+    def pack_correct_button(self, my_window: Union[tk.Tk, tk.Toplevel], frame: tk.Frame, button: int = 0, command: list = []) -> None:
         """
         Pack the correct button
             * 0  : OK
@@ -239,7 +258,7 @@ class ErrMessages(wt):
                 longest = length
         return longest
 
-    def basic_message(self, my_window: tk.Tk, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, icon_path: str = "", command: list = []) -> None:
+    def basic_message(self, my_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, icon_path: str = "", command: list = []) -> None:
         """ Display an error Message for the program """
         message_separator = "\n"
         message_result = {}
@@ -362,7 +381,7 @@ class ErrMessages(wt):
 
         err_screen.wait_window()
 
-    def simple_information_message(self, my_window: tk.Tk, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
+    def simple_information_message(self, my_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
         """ Display a simple warning message """
         self.basic_message(
             my_window,
@@ -374,7 +393,7 @@ class ErrMessages(wt):
             command=command
         )
 
-    def simple_warning_message(self, my_window: tk.Tk, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
+    def simple_warning_message(self, my_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
         """ Display a simple warning message """
         self.basic_message(
             my_window,
@@ -386,7 +405,7 @@ class ErrMessages(wt):
             command=command
         )
 
-    def simple_err_message(self, my_window: tk.Tk, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
+    def simple_err_message(self, my_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True, command: list = []) -> None:
         """ Display a simple error message """
         self.basic_message(
             my_window,
@@ -398,7 +417,7 @@ class ErrMessages(wt):
             command=command
         )
 
-    def advanced_err_message(self, parent_window: tk.Tk, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
+    def advanced_err_message(self, parent_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
         """ Display a simple error message """
         self.err_message_print_debug(f"""
 title = {title}
@@ -418,7 +437,7 @@ always_on_top = {always_on_top}
         )
         return self.execution_result
 
-    def advanced_warning_message(self, parent_window: tk.Toplevel, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
+    def advanced_warning_message(self, parent_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
         """ Display a simple error message """
         self.window = self.init_plain_window(parent_window)
         self.execution_result = 0
@@ -432,7 +451,7 @@ always_on_top = {always_on_top}
         )
         return self.execution_result
 
-    def advanced_information_message(self, parent_window: tk.Toplevel, title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
+    def advanced_information_message(self, parent_window: Union[tk.Tk, tk.Toplevel], title: str = "", message: str = "", button: int = 0, always_on_top: bool = True) -> int:
         """ Display a simple error message """
         self.window = self.init_plain_window(parent_window)
         self.execution_result = 0
@@ -446,7 +465,7 @@ always_on_top = {always_on_top}
         )
         return self.execution_result
 
-    def goodbye_message(self, parent_window: tk.Toplevel) -> None:
+    def goodbye_message(self, parent_window: Union[tk.Tk, tk.Toplevel]) -> None:
         """ Display a goodbye message """
         my_window = self.init_plain_window(parent_window)
         goodbye_msg = "Goodbye, see you next time!"
@@ -490,7 +509,7 @@ always_on_top = {always_on_top}
         )
         my_window.wait_window()
 
-    def all_clear(self, entries: dict) -> bool:
+    def all_clear(self, entries: Dict) -> bool:
         """ Check if all the entries have content """
         has_had_errors = False
         for i in enumerate(entries):
@@ -500,7 +519,7 @@ always_on_top = {always_on_top}
                     f"The content of {i[0]} cannot be empty!"
                 )
                 has_had_errors = True
-        if has_had_errors == True:
+        if has_had_errors is True:
             return False
         return True
 
