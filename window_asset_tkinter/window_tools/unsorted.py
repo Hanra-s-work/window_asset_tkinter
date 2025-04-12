@@ -11,6 +11,54 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 
+def static_create_text_variable(default_text: str) -> tk.StringVar:
+    """ create a text variable in order to store inputted and outputted text """
+    value = tk.StringVar()
+    value.set(default_text)
+
+    return value
+
+
+def static_load_image(image_path: str, width: int = 10, height: int = 10) -> Dict[str, Any]:
+    """
+        Add an image to a window
+        :param image_path: The path to the image
+        :param width: The destination width of the image
+        :param height: The destination height of the image
+        :return: A dictionnary with the following values:
+            * If everything went fine:
+                * "img": The image
+                * raw_output:
+                    * {"img":<object_pointing_to_the_image>}
+            * otherwise:
+                * "err_message": The error message if the image could not be loaded
+                * raw_output:
+                    * {"err_message":<error_message>}
+    """
+    result = {}
+    if (os.path.exists(image_path) is False) or (os.path.isfile(image_path) is False):
+        err_msg = "Image path is not valid or not provided"
+        result["err_message"] = err_msg
+        return result
+    if height <= 0 and width <= 0:
+        err_msg = "Image width and heigh must be greater than 0"
+        result["err_message"] = err_msg
+        return result
+    try:
+        result["img"] = Image.open(image_path)
+        if not hasattr(Image, 'Resampling'):  # Pillow<9.0
+            Image.Resampling = Image
+        result["img"] = result["img"].resize(
+            (width, height),
+            Image.Resampling.LANCZOS
+        )
+        result["img"] = ImageTk.PhotoImage(result["img"])
+    except Exception as error:
+        result["err_message"] = error
+        return result
+    return result
+
+
 class Unsorted:
     """ Class in the charge of containing the functions that could not be placed by action """
     @staticmethod
@@ -67,36 +115,12 @@ class Unsorted:
                 * raw_output:
                     * {"err_message":<error_message>}
         """
-        result = {}
-        if (os.path.exists(image_path) is False) or (os.path.isfile(image_path) is False):
-            err_msg = "Image path is not valid or not provided"
-            result["err_message"] = err_msg
-            return result
-        if height <= 0 and width <= 0:
-            err_msg = "Image width and heigh must be greater than 0"
-            result["err_message"] = err_msg
-            return result
-        try:
-            result["img"] = Image.open(image_path)
-            if not hasattr(Image, 'Resampling'):  # Pillow<9.0
-                Image.Resampling = Image
-            result["img"] = result["img"].resize(
-                (width, height),
-                Image.Resampling.LANCZOS
-            )
-            result["img"] = ImageTk.PhotoImage(result["img"])
-        except Exception as error:
-            result["err_message"] = error
-            return result
-        return result
+        return static_load_image(image_path, width, height)
 
     @staticmethod
     def create_text_variable(default_text: str) -> tk.StringVar:
         """ create a text variable in order to store inputted and outputted text """
-        value = tk.StringVar()
-        value.set(default_text)
-
-        return value
+        return static_create_text_variable(default_text)
 
     @staticmethod
     def clear_entry_content(entry: tk.Entry) -> None:
@@ -136,7 +160,6 @@ class Unsorted:
             image_pointer.__del__()
         except Exception as error:
             del image_pointer
-
 
 # usefull ressource:
 # icon: https://www.pythontutorial.net/tkinter/tkinter-window/
