@@ -116,7 +116,16 @@ class Add:
             fg=fg,
             font=font
         )
-        LabelFrame.pack(fill=fill, expand=expand, side=side, anchor=anchor)
+
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            LabelFrame.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            LabelFrame.pack(fill=fill, expand=expand, side=side, anchor=anchor)
         return LabelFrame
 
     @staticmethod
@@ -130,7 +139,16 @@ class Add:
             bg=bkg,
             width=width
         )
-        spin.pack(padx=position_x, pady=position_y)
+
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            spin.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            spin.pack(padx=position_x, pady=position_y)
         return spin
 
     @staticmethod
@@ -150,33 +168,85 @@ class Add:
             fg=fg,
             font=font
         )
-        entree.pack(
-            side=side,
-            fill=fill,
-            anchor=anchor,
-            padx=position_x,
-            pady=position_y
-        )
+
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            entree.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            entree.pack(
+                side=side,
+                fill=fill,
+                anchor=anchor,
+                padx=position_x,
+                pady=position_y
+            )
         return entree
 
     @staticmethod
-    def add_paned_window(window: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], orientation: str, side: it.TK_SIDE_TYPE, expand: bool, fill: str, vertical_padding: int, horizontal_padding: int, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> tk.PanedWindow:
+    def add_paned_window(window: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], orientation: str, side: it.TK_SIDE_TYPE, expand: bool, fill: str, vertical_padding: int, horizontal_padding: int, width: int = 50, height: int = 50, relief: str = tk.GROOVE, borderwidth: int = 0, name: str = "", cursor: str = "", grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> tk.PanedWindow:
         """ Add a paned window to the parent window, and configure orientation """
-        panned_window = tk.PanedWindow(window, orient=orientation)
-        panned_window.pack(
-            side=side,
-            expand=expand,
-            fill=fill,
-            pady=vertical_padding,
-            padx=horizontal_padding
+        panned_window = tk.PanedWindow(
+            window,
+            orient=orientation,
+            borderwidth=borderwidth,
+            relief=relief,
+            width=width,
+            height=height,
+            name=name,
+            cursor=cursor
+            # master: Misc | None=None,
+            # cnf: dict[str, Any] | None={},
+            # *,
+            # background: str=...,
+            # bd: _ScreenUnits=1,
+            # bg: str=...,
+            # border: _ScreenUnits=1,
+            # borderwidth: _ScreenUnits=1,
+            # cursor: _Cursor="",
+            # handlepad: _ScreenUnits=8,
+            # handlesize: _ScreenUnits=8,
+            # height: _ScreenUnits="",
+            # name: str=...,
+            # opaqueresize: bool=True,
+            # orient: Literal['horizontal', 'vertical']="horizontal",
+            # proxybackground: str="",
+            # proxyborderwidth: _ScreenUnits=2,
+            # proxyrelief: _Relief="flat",
+            # relief: _Relief="flat",
+            # sashcursor: _Cursor="",
+            # sashpad: _ScreenUnits=0,
+            # sashrelief: _Relief="flat",
+            # sashwidth: _ScreenUnits=3,
+            # showhandle: bool=False,
+            # width: _ScreenUnits=""
         )
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            panned_window.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            panned_window.pack(
+                side=side,
+                expand=expand,
+                fill=fill,
+                pady=vertical_padding,
+                padx=horizontal_padding
+            )
         return panned_window
 
     @staticmethod
-    def add_panned_window_node(panned_window: tk.PanedWindow, frame_window: Union[tk.Widget, tk.Frame, tk.LabelFrame], grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> None:
+    def add_panned_window_node(panned_window: tk.PanedWindow, frame_window: Union[tk.Widget, tk.Frame, tk.LabelFrame]) -> None:
         """ Add a node to the Paned window """
         panned_window.add(frame_window)
         panned_window.pack()
+        panned_window.update()
 
     @staticmethod
     def add_date_field(window: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], width: int = 16, date_pattern: str = "dd/MM/yyyy", selectmode: str = "day", pady: int = 0, padx: int = 0, bkg: str = "black", fg: str = "white", borderwidth: int = 2, side: it.TK_SIDE_TYPE = tk.LEFT, fill: str = tk.NONE, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> DateEntry:
@@ -190,12 +260,21 @@ class Add:
             selectmode=selectmode,
             date_pattern=date_pattern
         )
-        cal.pack(
-            pady=pady,
-            padx=padx,
-            side=side,
-            fill=fill
-        )
+
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            cal.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            cal.pack(
+                pady=pady,
+                padx=padx,
+                side=side,
+                fill=fill
+            )
         return cal
 
     @staticmethod
@@ -212,13 +291,21 @@ class Add:
             width=width
         )
         combo.current(default_choice)
-        combo.pack(
-            padx=padx,
-            pady=pady,
-            anchor=anchor,
-            fill=fill,
-            side=side
-        )
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            combo.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            combo.pack(
+                padx=padx,
+                pady=pady,
+                anchor=anchor,
+                fill=fill,
+                side=side
+            )
         return combo
 
     def add_get_data(self, parent_frame: Union[tk.Frame, tk.LabelFrame], window_width: int, window_height: int, bkg: str, fg: str, label_description: str, button_command: object, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> Dict[str, Any]:
@@ -239,7 +326,10 @@ class Add:
             width=window_width,
             height=window_height,
             position_x=0,
-            position_y=0
+            position_y=0,
+            grid_row=grid_row,
+            grid_column=grid_column,
+            grid_column_span=grid_column_span
         )
         result['description_label'] = self.add_label(
             result['data_frame'],
@@ -296,14 +386,22 @@ class Add:
             undo=undo,
             wrap=wrap
         )
-        paragraph.pack(
-            fill=fill,
-            side=side,
-            padx=padx_pack,
-            pady=pady_pack,
-            ipadx=ipadx,
-            ipady=ipady
-        )
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            paragraph.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            paragraph.pack(
+                fill=fill,
+                side=side,
+                padx=padx_pack,
+                pady=pady_pack,
+                ipadx=ipadx,
+                ipady=ipady
+            )
         return paragraph
 
     def add_text_field(self, frame: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], fg: str = "black", bkg: str = "white", height: int = 10, width: int = 10, padx_text: int = 0, pady_text: int = 0, block_cursor: bool = False, font: Union[Tuple, str] = ("Times New Roman", 12), cursor: str = "xterm", export_selection: bool = True, highlight_colour: str = "#0077FF",  relief: str = tk.GROOVE, undo: bool = True, wrap: str = "word", fill: str = tk.BOTH, side: it.TK_SIDE_TYPE = tk.TOP, padx_pack: int = 0, pady_pack: int = 0, ipadx: int = 1, ipady: int = 1, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> tk.Text:
@@ -329,7 +427,10 @@ class Add:
             padx_pack,
             pady_pack,
             ipadx,
-            ipady
+            ipady,
+            grid_row,
+            grid_column,
+            grid_column_span
         )
 
     def add_grid(self, window: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], borderwidth: int, relief: str, bkg: str, width: int = 50, height: int = 50, position_x: int = 0, position_y: int = 0, side: it.TK_SIDE_TYPE = tk.TOP, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> tk.Frame:
@@ -343,7 +444,10 @@ class Add:
             height,
             position_x,
             position_y,
-            side
+            side,
+            grid_column=grid_column,
+            grid_row=grid_row,
+            grid_column_span=grid_column_span
         )
         frame.grid_columnconfigure(0, weight=1)
         frame.grid_rowconfigure(0, weight=1)
@@ -361,7 +465,10 @@ class Add:
             grid_height,
             grid_position_x,
             grid_position_y,
-            grid_side
+            grid_side,
+            grid_row=grid_row,
+            grid_column=grid_column,
+            grid_column_span=grid_column_span
         )
         result["paragraph"] = self.add_paragraph_field(
             frame=result["grid"],
@@ -397,7 +504,7 @@ class Add:
         return result
 
     @staticmethod
-    def add_scroll_bar(frame: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], tk_field: tk.Text, scroll_orientation: it.TK_SCROLL_ORIENTATION_TYPE = tk.VERTICAL, fill: str = tk.BOTH, side: it.TK_SIDE_TYPE = tk.TOP, padx: int = 0, pady: int = 0, anchor:  it.TK_ANCHOR_TYPE = tk.CENTER, row: int = -1, column: int = -1, sticky: str = tk.NS, grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> ttk.Scrollbar:
+    def add_scroll_bar(frame: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], tk_field: tk.Text, scroll_orientation: it.TK_SCROLL_ORIENTATION_TYPE = tk.VERTICAL, fill: str = tk.BOTH, side: it.TK_SIDE_TYPE = tk.TOP, padx: int = 0, pady: int = 0, anchor:  it.TK_ANCHOR_TYPE = tk.CENTER, row: int = -1, column: int = -1, sticky: str = tk.NS, grid_column_span: int = -1) -> ttk.Scrollbar:
         """ Add a scroll bar to a tkinter asset """
         scroll_bar = ttk.Scrollbar(
             master=frame,
@@ -405,7 +512,13 @@ class Add:
             command=tk_field.yview
         )
         if row > -1 and column > -1:
-            scroll_bar.grid(row=row, column=column, sticky=sticky)
+            grid_column_span = max(grid_column_span, 1)
+            scroll_bar.grid(
+                row=row,
+                column=column,
+                sticky=sticky,
+                columnspan=grid_column_span
+            )
         else:
             scroll_bar.pack(
                 fill=fill,
@@ -433,7 +546,10 @@ class Add:
                 position_y=0,
                 side=side,
                 anchor=anchor,
-                fill=fill
+                fill=fill,
+                grid_row=grid_row,
+                grid_column=grid_column,
+                grid_column_span=grid_column_span
             )
             result["err_message"] = err_msg
             return result
@@ -445,13 +561,21 @@ class Add:
                 height=height
             )
             result["panel"].image = image_data["img"]
-            result["panel"].pack(
-                fill=fill,
-                side=side,
-                padx=padx,
-                pady=pady,
-                anchor=anchor
-            )
+            if grid_row > -1 and grid_column > -1:
+                grid_column_span = max(grid_column_span, 1)
+                result["panel"].grid(
+                    row=grid_row,
+                    column=grid_column,
+                    columnspan=grid_column_span
+                )
+            else:
+                result["panel"].pack(
+                    fill=fill,
+                    side=side,
+                    padx=padx,
+                    pady=pady,
+                    anchor=anchor
+                )
             result["panel"].config(bg=bkg)
             result["img"] = image_data["img"]
         except Exception as error:
@@ -482,7 +606,10 @@ class Add:
                 padx_pack=0,
                 pady_pack=0,
                 ipadx=0,
-                ipady=0
+                ipady=0,
+                grid_row=grid_row,
+                grid_column=grid_column,
+                grid_column_span=grid_column_span
             )
             result["placeholder"].insert(tk.END, result["err_message"])
             result["placeholder"].config(state=tk.DISABLED)
@@ -503,7 +630,10 @@ class Add:
             side=side,
             anchor=anchor,
             fill=tk.X,
-            font=font
+            font=font,
+            grid_row=grid_row,
+            grid_column=grid_column,
+            grid_column_span=grid_column_span
         )
         return watermark
 
@@ -520,7 +650,15 @@ class Add:
             anchor=anchor,
             font=font
         )
-        Label.pack(padx=position_x, pady=position_y, side=side, fill=fill)
+        if grid_row > -1 and grid_column > -1:
+            grid_column_span = max(grid_column_span, 1)
+            Label.grid(
+                row=grid_row,
+                column=grid_column,
+                columnspan=grid_column_span
+            )
+        else:
+            Label.pack(padx=position_x, pady=position_y, side=side, fill=fill)
         return Label
 
     def add_image(self, window: Union[tk.Misc, tk.PanedWindow, tk.Frame, tk.LabelFrame, tk.Toplevel, tk.Tk], image_path: str, bkg: str = "#FFFFFF", fg: str = "#000000", width: int = 10, height: int = 10, fill: str = tk.BOTH, side: it.TK_SIDE_TYPE = tk.TOP, padx: int = 0, pady: int = 0, anchor:  it.TK_ANCHOR_TYPE = tk.NW, font: Union[Tuple, str] = ("Times New Roman", 12), grid_row: int = -1, grid_column: int = -1, grid_column_span: int = -1) -> Dict[str, Any]:
@@ -542,7 +680,10 @@ class Add:
             padx=padx,
             pady=pady,
             anchor=anchor,
-            font=font
+            font=font,
+            grid_row=grid_row,
+            grid_column=grid_column,
+            grid_column_span=grid_column_span
         )
         return result
 
@@ -602,9 +743,11 @@ if __name__ == "__main__":
             expand=tk.YES,
             fill=tk.BOTH,
             vertical_padding=10,
-            horizontal_padding=10
+            horizontal_padding=10,
+            width=10,
+            height=100,
         )
-        sample_frame_node = ai.add_labelframe(
+        sample_label_frame_node = ai.add_labelframe(
             window=sample_paned_window,
             title="Paned window",
             padding_x=10,
@@ -615,14 +758,14 @@ if __name__ == "__main__":
             side=tk.TOP
         )
         ai.add_panned_window_node(
-            sample_paned_window, sample_frame_node
+            sample_paned_window, sample_label_frame_node
         )
-        ai.add_date_field(sample_frame_node)
+        ai.add_date_field(sample_label_frame_node)
         ai.add_dropdown(
-            window, ["Option 1", "Option 2", "Option 3"],
+            sample_label_frame_node, ["Option 1", "Option 2", "Option 3"],
             width=10, bkg="white", fg="black"
         )
-        sample_text_field = ai.add_text_field(sample_frame_node)
+        sample_text_field = ai.add_text_field(sample_label_frame_node)
         sample_text_field.insert(tk.END, "Sample text for the text field")
         sample_grid_labelframe = ai.add_labelframe(
             window=window,
@@ -656,22 +799,44 @@ if __name__ == "__main__":
                 counter = 1
             else:
                 counter = 0
-        sample_scrollbox = ai.add_scrollbox(
-            window, 0, tk.FLAT, "white"
+        sample_scrolling = ai.add_labelframe(
+            window=window,
+            title="Sample scrolling",
+            padding_x=10,
+            padding_y=10,
+            fill=tk.NONE,
+            expand=tk.YES,
+            bkg="white",
+            side=tk.TOP
         )
-        sample_scroll_bar = ai.add_scroll_bar(
-            window, sample_text_field
+        sample_scrollbox = ai.add_scrollbox(
+            sample_scrolling, 0, tk.FLAT, "white",
+            paragraph_height=5, paragraph_width=40,
+        )
+        sample_scrollbox["paragraph"].insert(
+            tk.END, "Sample text for the scroll box.\n\n\n\n\n\nSample text for the scroll box."
+        )
+        sample_media_title_frame = ai.add_labelframe(
+            window=window,
+            title="Sample media",
+            padding_x=10,
+            padding_y=0,
+            fill=tk.NONE,
+            expand=tk.YES,
+            bkg="white",
+            side=tk.TOP
+        )
+        final_path = f"{os.path.dirname(os.path.abspath(__file__))}/../assets/information_64x64.png"
+        ai.add_image(
+            sample_media_title_frame, final_path,
+            width=64, height=64,
+            padx=0, pady=0,
+            side=tk.LEFT,
+        )
+        ai.add_emoji(
+            sample_media_title_frame, "😀", "black", "white", width=2, height=2,
+            position_x=0, position_y=0, side=tk.LEFT
         )
         ai.add_watermark(window)
-        print(f"path: {os.path.dirname(os.path.abspath(__file__))}")
-        final_path = f"{os.path.dirname(os.path.abspath(__file__))}/../assets/information_64x64.png"
-        print(f"final_path: {final_path}")
-        sample_image = ai.add_image(
-            window, final_path,
-            width=10, height=10
-        )
-        sample_emoji = ai.add_emoji(
-            window, "😀", "black", "white", width=10, height=10
-        )
         window.mainloop()
     test_assets()
