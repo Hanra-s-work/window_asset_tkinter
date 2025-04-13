@@ -2,6 +2,8 @@
 File in charge of containing the functions that update info on GUI elements
 """
 
+from typing import Union
+
 import os
 import platform
 import tkinter as tk
@@ -11,29 +13,47 @@ class Set:
     """ The class containing the actions for editing GUI aspects on the fly """
 
     @staticmethod
-    def set_transparency(window: tk.Tk, alpha: int) -> None:
+    def set_transparency(window: tk.Tk, alpha: Union[int, float]) -> None:
         """ Set the transparency of the window """
         if alpha < 0:
             alpha *= (-1)
 
         if alpha > 1:
-            alpha = float((alpha - 0) / (1 - 0))
+            numerator = alpha - 1
+            denominator = 1
+            fraction = numerator / denominator
+            alpha = float(fraction)
         window.attributes('-alpha', alpha)
 
     @staticmethod
     def set_colour_transparency(window: tk.Tk, colour: str = "grey", transparent: bool = True) -> None:
         """ Make the background of the window transparent"""
         if platform.system() == "Windows":
-            if transparent == True:
+            if transparent is True:
                 window.wm_attributes("-transparentcolor", colour)
             else:
                 window.wm_attributes("-transparentcolor", "")
         elif platform.system() == "Java":
             window.wm_attributes("-transparent", transparent)
-            if transparent == True:
+            if transparent is True:
                 window.config(bg='systemTransparent')
             else:
                 window.config(bg=colour)
+        elif platform.system() == "Darwin":
+            window.wm_attributes("-transparentcolor", colour)
+            if transparent is True:
+                window.config(bg='systemTransparent')
+            else:
+                window.config(bg=colour)
+        elif platform.system() == "Linux":
+            window.wm_attributes("-transparentcolor", colour)
+            if transparent is True:
+                window.config(bg='systemTransparent')
+            else:
+                window.config(bg=colour)
+        else:
+            print(f"Unsupported platform: {platform.system()}")
+            print("Setting transparency is not supported on this platform.")
 
     @staticmethod
     def set_window_title_bar_visibility(window: tk.Tk, visible: bool = False) -> None:
@@ -61,7 +81,7 @@ class Set:
 
     @staticmethod
     def set_min_window_size(window: tk.Tk, width: int, height: int) -> None:
-        """ Set the minimm size for a window """
+        """ Set the minimum size for a window """
         window.minsize(width, height)
 
     @staticmethod
