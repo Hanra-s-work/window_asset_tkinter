@@ -34,6 +34,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: install xvfb
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb
+
     - name: Get Latest Tag
       id: get_latest_tag
       run: |
@@ -145,9 +150,9 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     
-    - name: Test with pytest
+    - name: Test with pytest contained inside of xvfb
       run: |
-        pytest
+        xvfb-run pytest -s
 
     - name: building the package
       run: |
