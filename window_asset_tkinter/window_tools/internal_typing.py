@@ -2,7 +2,14 @@
 File in charge of containing the esoteric types used by tkinter so that they can be referenced in the code.
 """
 
-from typing import TypeAlias, Union, Literal
+import sys
+from typing import Union, Literal
+
+if sys.version_info >= (3, 10):
+    from typing import TypeAlias
+else:
+    TypeAlias = type
+
 
 TK_ANCHOR_TYPE: TypeAlias = Union[
     str,
