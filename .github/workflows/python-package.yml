@@ -4,9 +4,6 @@ on:
   push:
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
@@ -23,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
     - name: Checkout code
@@ -43,7 +40,7 @@ jobs:
       id: get_latest_tag
       run: |
         echo "Getting tags"
-        git fetch --tags # Make sure to fetch the tags first
+        git fetch --tags || echo "⚠️ git fetch --tags failed, continuing anyway" # Make sure to fetch the tags first
         echo "Updated the list"
         latest_tag=$(git tag --list "v*" | sort -rV | head -n 1)
         echo "Latest tag = $latest_tag"
