@@ -161,5 +161,26 @@ class Unsorted:
         except Exception as error:
             del image_pointer
 
+    @staticmethod
+    def hide_window(window: tk.Tk) -> None:
+        """ Hide the window """
+        window.withdraw()
+
+    @staticmethod
+    def show_window(window: tk.Tk) -> None:
+        """ Show the window """
+        window.deiconify()
+
+    @staticmethod
+    def destroy_window(window: tk.Tk) -> None:
+        """ Destroy the window """
+        window.destroy()
+
+    @staticmethod
+    def close_window(window: tk.Tk) -> None:
+        """ Close the window """
+        window.quit()
+        window.destroy()
+
 # usefull ressource:
 # icon: https://www.pythontutorial.net/tkinter/tkinter-window/
